@@ -53,6 +53,6 @@ This research project focuses on developing an autonomous drifting algorithm tha
             - The algorithm has a `desired_yaw_rate` which tries to match the `yaw_rate`
             - It has some threshold for the throttle too.
 5. step
-    - Make the car do some 8 not just donuts
+    - Make the car do some ∞ not just donuts
 > [!NOTE]
 > Still under planning and construction :grinning:
