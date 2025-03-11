@@ -23,24 +23,24 @@ This research project focuses on developing an autonomous drifting algorithm tha
 
 # Steps in the development
 
-1. step - 2025.02.12
+1. step - __2025.02.12__
     - Love drifting! :heart:
-    - Make the plan in the **Autonomous Drifting and Stability Control Research Proposal.docx**
-    - Request acces for **Beamng.tech** (Thank you! :grinning: )
-2. step - 2025.02.20
+    - Make the plan in the `Autonomous Drifting and Stability Control Research Proposal.docx`
+    - Request access for **Beamng.tech** (Thank you! :grinning: )
+2. step - __2025.02.20__
     - Learn how to use `beamngpy`
     - Make basic scenarios
     - Analyze the data from the sensors
     - Draw some animation on paper to understand the basics of the project
-3. step - 2025.03.04
+3. step - __2025.03.04__
     - Make the `first_test.py` and the `second_test.py`
         - [first_test.py](https://github.com/badzso-boop/drifter/blob/main/first_test.py)
             - The basics of donut drifting with only the steering
             - Not perfect, because it goes in a spiral not in a circle
         - [second_test.py](https://github.com/badzso-boop/drifter/blob/main/second_test.py)
             - Recognize the directions the car is moving with some error treshold
-4. step - 2025.03.11
-    - __Almost perfect__ donut drifting, just a little spiral sometimes almost none
+4. step - __2025.03.11__
+    - __Almost perfect__ donut drifting, just a little spiral, sometimes almost none
     - It works with manipulating the **steering** and the **throttle**
     - Make the `third_test.py` and the `fourth_test.py`
         - [third_test.py](https://github.com/badzso-boop/drifter/blob/main/third_test.py)
@@ -54,5 +54,5 @@ This research project focuses on developing an autonomous drifting algorithm tha
             - It has some threshold for the throttle too.
 5. step
     - Make the car do some 8 not just donuts
-    > [!NOTE]
-    > Still under planning and construction :grinning:
+> [!NOTE]
+> Still under planning and construction :grinning:
