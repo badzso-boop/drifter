@@ -6,6 +6,8 @@ import logging
 from beamngpy import BeamNGpy, Scenario, Vehicle, set_up_simple_logging
 from beamngpy.sensors import AdvancedIMU, Electrics, Sensor, PowertrainSensor
 
+# Ez a függvény csak annyit szolgál, ha az autó motorja elkezdene túlmelegedni,
+# akkor kicsit abbahagyja a driftelést, hogy visszahűljön
 def cooling(vehicle):
     vehicle.control(steering=0, throttle=0.2, brake=0, parkingbrake=0,clutch=0, gear=3)
     electrics_data = vehicle.sensors["electrics"]
@@ -19,10 +21,6 @@ def cooling(vehicle):
     time.sleep(5)
     left_circle(vehicle) if random.randint(0, 1) == 0 else right_circle(vehicle)
 
-
-
-
-
 def left_circle(vehicle):
     vehicle.control(steering=-1, throttle=1, brake=0, parkingbrake=0,clutch=0, gear=3)
     time.sleep(2)
@@ -32,7 +30,7 @@ def right_circle(vehicle):
     time.sleep(2)
 
 
-
+# ebben a függvényben kérem le a különböző adatokat a szenzorokból
 def get_data(vehicle, imu, data_dict, yaw_rates, velocities):
     vehicle.sensors.poll()
     electrics_data = vehicle.sensors["electrics"]
@@ -64,9 +62,7 @@ def get_data(vehicle, imu, data_dict, yaw_rates, velocities):
 
 
 
-
-
-
+# itt történnek az autó irányíztásához szükséges zámítások
 def control_loop(vehicle, data_dict, yaw_rates, velocities):
     yaw_rate = data_dict["yaw_rate"]
     velocity = data_dict["velocity"]
@@ -112,7 +108,9 @@ def control_loop(vehicle, data_dict, yaw_rates, velocities):
     print("--------------------------")
 
 
-
+# tul gyorsan dobodik at a masik iranyba igy nem fankot csinal hanem egy oriasi felkor driftet
+# talan az airspeed-nek a maximalizalasaval lehetne jatszani es akkor bele-bele fekezne, 
+# vagy elvenne a gazt, esetleg kezifekezne.
 def change_direction_calculate(yaw_rate):
     if abs(yaw_rate) > 1.2:
         return "Right" if yaw_rate > 0 else "Left"
@@ -139,12 +137,13 @@ def change_direction(vehicle, imu, data_dict, yaw_rates, velocities):
         time.sleep(0.1)
         attempts += 1
 
+# fő függvény ahonnan indul, az elején pár konfiguráció
 def main():
     random.seed(1703)
     set_up_simple_logging()
     logging.basicConfig(level=logging.INFO, format='%(message)s')
 
-    beamng = BeamNGpy("localhost", 25252, home="F:/BeamNG.tech.v0.31.3.0/BeamNG.tech.v0.31.3.0")
+    beamng = BeamNGpy("localhost", 25252, home="D:/BeamNG.tech.v0.35.5.0/BeamNG.tech.v0.35.5.0")
     bng = beamng.open(launch=True)
 
     scenario = Scenario("smallgrid","autonomous_drifting_demo",)
@@ -183,6 +182,8 @@ def main():
 
     i = 0
 
+    # végtelen ciklus, hogy ne hagyja abba az algoritmus az irányítást
+    # az i változó azt szolgálja, hogy mikor legyen az irányváltás
     while True:
         get_data(vehicle, imu, data_dict, yaw_rates, velocities)
         control_loop(vehicle, data_dict, yaw_rates, velocities)
